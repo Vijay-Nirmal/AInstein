@@ -1,2 +1,0 @@
-model_checkpoint_path: "D:\\Code\\Python\\AInstein\\LanguageEngine\\models\\Data\\TrainedModels\\SimpleClassifierV1\\model.tflearn"
-all_model_checkpoint_paths: "D:\\Code\\Python\\AInstein\\LanguageEngine\\models\\Data\\TrainedModels\\SimpleClassifierV1\\model.tflearn"

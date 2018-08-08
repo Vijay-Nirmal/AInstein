@@ -55,8 +55,8 @@ def train():
     tf.reset_default_graph()
 
     net = tflearn.input_data(shape=[None, len(trainingDataX[0])])
-    net = tflearn.fully_connected(net, 8)
-    net = tflearn.fully_connected(net, 8)
+    net = tflearn.fully_connected(net, 16)
+    net = tflearn.fully_connected(net, 16)
 
     net = tflearn.fully_connected(
         net, len(trainingDataY[0]), activation='softmax')
@@ -64,10 +64,10 @@ def train():
 
     model = tflearn.DNN(net, tensorboard_dir='data/tflearn_logs')
 
-    model.fit(trainingDataX, trainingDataY, n_epoch=400,
+    model.fit(trainingDataX, trainingDataY, n_epoch=300,
               batch_size=16, show_metric=True)
     
-    model.save('../Data/TrainedModels/SimpleClassifierV1/model.tflearn')
+    model.save('data/TrainedModel/model.tflearn')
 
     pickle.dump({'words': words, 'classes': tags, 'trainX': trainingDataX,
                  'trainY': trainingDataY}, open("data/trainingData", "wb"))

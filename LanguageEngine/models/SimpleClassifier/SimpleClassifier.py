@@ -17,13 +17,13 @@ trainX = data['trainX']
 trainY = data['trainY']
 
 net = tflearn.input_data(shape=[None, len(trainX[0])])
-net = tflearn.fully_connected(net, 8)
-net = tflearn.fully_connected(net, 8)
+net = tflearn.fully_connected(net, 16)
+net = tflearn.fully_connected(net, 16)
 net = tflearn.fully_connected(net, len(trainY[0]), activation='softmax')
 net = tflearn.regression(net)
 
 model = tflearn.DNN(net, tensorboard_dir='models/SimpleClassifier/data/tflearn_logs')
-model.load('models/Data/TrainedModels/SimpleClassifierV1/model.tflearn')
+model.load('models/SimpleClassifier/data/TrainedModel/model.tflearn')
 MIN_ACC = 0.10
 
 
