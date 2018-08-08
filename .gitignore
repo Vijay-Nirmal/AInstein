@@ -1,4 +1,2 @@
-Data/
-data/
-Train.py
 *cache*
+tflearn_logs
