@@ -1,3 +1,11 @@
-from models.SimpleClassifier import SimpleClassifier as sc
+SIMPLE_CLASSIFIER = 1
 
-print(sc.predict("what is the meaning of life?"))
+class Classifier():
+    
+    def __init__(self, type=SIMPLE_CLASSIFIER):
+        if type is SIMPLE_CLASSIFIER:
+            from LanguageEngine.models.SimpleClassifier import SimpleClassifier as sc
+            self.classifier = sc
+    
+    def predict(self, sentence):
+        return self.classifier.predict(sentence)
