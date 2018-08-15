@@ -26,7 +26,7 @@ def populateFacultyDetailsJSON(facultyLink):
     jsonData = {}
 
     for i, faculty in enumerate(facultyLink, 1):
-        print(str(i) + " in " + str(len(facultyLink)))
+        print(str(i) + " in " + str(len(facultyLink)) + " -> Progress {:2.1%}".format(i / len(facultyLink)), end="\r")
 
         soup = BeautifulSoup(urlopen(faculty), "lxml")
 
@@ -40,6 +40,16 @@ def populateFacultyDetailsJSON(facultyLink):
 
         image = soup.find("div", {"class": "container mainContent"}).find("div", {"class": "container-fluid"}).find("img")["src"]
 
+        emailSoup = soup.find("div", {"class": "field field-name-field-faculty-email field-type-text field-label-hidden"})
+        email = "NULL"
+        if emailSoup is not None:
+            email = emailSoup.text.strip()
+
+        qualificationSoup = soup.find("div", {"class": "field field-name-field-faculty-qualification field-type-taxonomy-term-reference field-label-inline clearfix"})
+        qualification = "NULL"
+        if qualificationSoup is not None:
+            qualification = qualificationSoup.findChildren()[1].text.strip()
+
         mainContentSoup = soup.find("div", {"class": "field field-name-body field-type-text-with-summary field-label-hidden"})
         
         description = ""
@@ -49,7 +59,7 @@ def populateFacultyDetailsJSON(facultyLink):
                 break
             description += tags.text + ""
 
-        jsonData[str(i)] = {"name": name, "positions": positions, "image": image, "description": description}
+        jsonData[str(i)] = {"name": name, "Email": email, "positions": positions, "Qualification": qualification, "image": image, "description": description.strip()}
 
     with open('KnowledgeEngine/Data/FacultyDetails.json', 'w', encoding='utf-8') as outputfile:
         json.dump(jsonData, outputfile, ensure_ascii=False)
