@@ -5,6 +5,10 @@ import json
 def getAllPageUrl():
     """Get the list of all pages
     
+    Returns
+    -------
+    allPageUrl : `list`
+        List of all pages
     """
 
     allPageUrl = []
