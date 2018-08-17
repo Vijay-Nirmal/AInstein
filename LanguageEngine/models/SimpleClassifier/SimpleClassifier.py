@@ -9,25 +9,29 @@ from nltk.stem.lancaster import LancasterStemmer
 import numpy as np
 import random
 
-context = {}
 
-stemmer = LancasterStemmer()
-st = StanfordNERTagger("LanguageEngine/models/Dependencies/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz", "LanguageEngine/models/Data/stanford-ner/stanford-ner.jar", encoding="utf-8")
-data = pickle.load(open("LanguageEngine/models/SimpleClassifier/data/trainingData", "rb"))
-words = data['words']
-classes = data['classes']
-trainX = data['trainX']
-trainY = data['trainY']
+def loadTFModel():
+    
+    net = tflearn.input_data(shape=[None, len(trainX[0])])
+    net = tflearn.fully_connected(net, 16)
+    net = tflearn.fully_connected(net, 16)
+    net = tflearn.fully_connected(net, len(trainY[0]), activation='softmax')
+    net = tflearn.regression(net)
+    model = tflearn.DNN(net, tensorboard_dir='LanguageEngine/models/SimpleClassifier/data/tflearn_logs')
+    model.load('LanguageEngine/models/SimpleClassifier/data/TrainedModel/model.tflearn')
+    return model
 
-net = tflearn.input_data(shape=[None, len(trainX[0])])
-net = tflearn.fully_connected(net, 16)
-net = tflearn.fully_connected(net, 16)
-net = tflearn.fully_connected(net, len(trainY[0]), activation='softmax')
-net = tflearn.regression(net)
+def loadAllData():
+    st = StanfordNERTagger("LanguageEngine/models/Dependencies/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz", "LanguageEngine/models/Data/stanford-ner/stanford-ner.jar", encoding="utf-8")
+    data = pickle.load(open("LanguageEngine/models/SimpleClassifier/data/trainingData", "rb"))
+    words = data['words']
+    classes = data['classes']
+    trainX = data['trainX']
+    trainY = data['trainY']
+    stemmer = LancasterStemmer()
+    return (st, words, classes, trainX, trainY, stemmer, model)
 
-model = tflearn.DNN(net, tensorboard_dir='LanguageEngine/models/SimpleClassifier/data/tflearn_logs')
-model.load('LanguageEngine/models/SimpleClassifier/data/TrainedModel/model.tflearn')
-MIN_ACC = 0.10
+st, words, classes, trainX, trainY, stemmer, model = loadAllData()
 
 
 def tokenizeAndStem(sentence):
@@ -48,7 +52,7 @@ def makeInputArray(sentence, words, showDetails=False):
     return(np.array(bag))
 
 
-def predict(sentence):
+def predict(sentence, MIN_ACC=0.1):
     results = model.predict([makeInputArray(sentence, words)])
     results = results[0]
     results = [[i, r] for i, r in enumerate(results) if r > MIN_ACC]
