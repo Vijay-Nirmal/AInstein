@@ -11,7 +11,7 @@ stemmer = LancasterStemmer()
 
 
 def train():
-    with open("../Data/context.json") as jsonData:
+    with open("../TrainingData/context.json") as jsonData:
         intents = json.load(jsonData)
 
     words = []

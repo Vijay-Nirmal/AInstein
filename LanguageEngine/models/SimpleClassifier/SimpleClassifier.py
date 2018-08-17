@@ -12,7 +12,7 @@ import random
 context = {}
 
 stemmer = LancasterStemmer()
-st = StanfordNERTagger("LanguageEngine/models/Data/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz", "LanguageEngine/models/Data/stanford-ner/stanford-ner.jar", encoding="utf-8")
+st = StanfordNERTagger("LanguageEngine/models/Dependencies/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz", "LanguageEngine/models/Data/stanford-ner/stanford-ner.jar", encoding="utf-8")
 data = pickle.load(open("LanguageEngine/models/SimpleClassifier/data/trainingData", "rb"))
 words = data['words']
 classes = data['classes']
