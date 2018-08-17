@@ -22,7 +22,7 @@ def makeModel(lengthInput, lengthOutput):
 
     Returns
     -------
-    model : tflearn.DNN()
+    model : tflearn.DNN
         The model with appropriate size
 
     """
