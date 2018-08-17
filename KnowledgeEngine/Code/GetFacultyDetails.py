@@ -3,6 +3,10 @@ from urllib.request import urlopen
 import json
 
 def getAllPageUrl():
+    """Get the list of all pages
+    
+    """
+
     allPageUrl = []
     allPageUrl.append("https://www.amrita.edu/faculty?field_faculty_department_tid=38&field_faculty_designation_tid=All&field_faculty_campus_tid=All&field_faculty_department_main_tid=All")
 
@@ -12,6 +16,20 @@ def getAllPageUrl():
     return allPageUrl
 
 def getFacultyLink(allPageUrl):
+    """Get the list of faculty links from all the pages
+    
+    Parameters
+    ----------
+    allPageUrl : `list`
+        List of all pages
+    
+    Returns
+    -------
+    facultyLink : `list`
+        List of all faculties
+
+    """
+
     facultyLink = []
 
     print("Getting the list of faculties ...", end="\r")
@@ -24,6 +42,14 @@ def getFacultyLink(allPageUrl):
     return facultyLink
 
 def populateFacultyDetailsJSON(facultyLink):
+    """Create FacultyDetails.json file with all faculty details
+    
+    Parameters
+    ----------
+    facultyLink : `list`
+       List of all faculties
+    
+    """
     jsonData = {}
 
     for i, faculty in enumerate(facultyLink, 1):
@@ -77,6 +103,9 @@ def populateFacultyDetailsJSON(facultyLink):
         json.dump(jsonData, outputfile, ensure_ascii=False)
 
 def getFacultyDetails():
+    """Main function to create faculty details database
+    
+    """
     allPageUrl = getAllPageUrl()
     facultyLink = getFacultyLink(allPageUrl)
     populateFacultyDetailsJSON(facultyLink)
