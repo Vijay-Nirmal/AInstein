@@ -8,7 +8,7 @@ from urllib.request import urlopen
 import re
 
 def removeRefNo(inputString):
-    return re.sub(r"[\(\[].*?[\)\]]", "", inputString)
+    return re.sub(r"[\[].*?[\]]", "", inputString)
  
 def getOnlyText(url):
     page = urlopen(url)
