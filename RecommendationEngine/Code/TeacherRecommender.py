@@ -18,7 +18,6 @@ def loadData(location="RecommendationEngine/Data/FacultyInterests.json"):
     location : str
         The string location of the JSON file
     
-
     Returns
     -------
     data : dict
