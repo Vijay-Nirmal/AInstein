@@ -8,7 +8,6 @@ def loadData(location="KnowledgeEngine\\Data\\FacultyDetails.json"):
     location : str
         The string location of the JSON file
     
-
     Returns
     -------
     data : dict
