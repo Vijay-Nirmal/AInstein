@@ -1,0 +1,137 @@
+{
+  "contexts": [
+    {
+      "tag": "self",
+      "patterns": [
+        "Who are you?",
+        "What's your name?",
+        "What do you do?",
+        "What is your purpose?",
+        "What are you?",
+        "Your name?",
+        "What can you do?",
+        "are you real",
+        "are you human?"
+      ]
+    },
+    {
+      "tag": "self.greetings",
+      "patterns": [
+        "/start",
+        "Hi",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day",
+        "Yo",
+        "What's up",
+        "How ya doing?",
+        "How are you doing?",
+        "Whaddup?",
+        "hey",
+        "Sup",
+        "Wassup",
+        "how's it going",
+        "hows it hanging"
+      ]
+    },
+    {
+      "tag": "self.quality",
+      "patterns": [
+        "you suck",
+        "untrained",
+        "why are you so untrained",
+        "you need more training",
+        "not good"
+      ]
+    },
+    {
+      "tag": "self.sexualAdvances",
+      "patterns": [
+        "Baby",
+        "Babe",
+        "Do you smash",
+        "Wanna fuck",
+        "Do you smash",
+        "What is sex",
+        "Will you have sex with me",
+        "Will you marry me?",
+        "fuck me",
+        "give me a bj",
+        "give me a blow job",
+        "give me a rim job",
+        "Wanna bang?",
+        "Will you bang me?",
+        "luv you",
+        "i love you",
+        "love you",
+        "are you single",
+        "single?"
+      ]
+    },
+    {
+      "tag": "jokes",
+      "patterns": [
+        "tell me a joke",
+        "tell me something funny",
+        "make me laugh",
+        "say something funny",
+        "say a joke",
+        "tell a joke",
+        "joke"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": [
+        "Bye",
+        "See you later",
+        "Goodbye",
+        "Chao",
+        "Ciao"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": [
+        "Thanks",
+        "Thank you",
+        "That's helpful",
+        "Bless",
+        "Peace"
+      ]
+    },
+    {
+      "tag": "stall",
+      "patterns": [
+        "hmm",
+        "ahaan",
+        "yeah",
+        "yes",
+        "yep",
+        "i see",
+        "wow",
+        "really",
+        "seriously"
+      ]
+    },
+    {
+      "tag": "who",
+      "patterns": [
+        "who is barack obama",
+        "who is latha parameswaran",
+        "who is the best teacher in amrita"
+      ]
+    },
+    {
+      "tag": "what",
+      "patterns": [
+        "what is machine learning?",
+        "what is deep learning",
+        "what is amrita",
+        "what is linear algebra",
+        "what is the best restaurant in coimbatore"
+      ]
+    }
+  ]
+}
