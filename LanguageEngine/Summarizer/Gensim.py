@@ -8,7 +8,7 @@ from urllib.request import urlopen
 import re
 
 def removeRefNo(inputString):
-    """Removes reference numbers from the string
+    """Removes reference numbers from the strings obtained from wikipedia
     
     Parameters
     ----------
