@@ -123,7 +123,7 @@ def getOnlyText(url, noOfPar = 0):
         for i, para in enumerate(soup.find_all('p')):
             if i >= noOfPar:
                 break
-            text += " " + para
+            text += " " + para.text
     
     return text.strip()
 
