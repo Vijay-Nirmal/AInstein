@@ -64,7 +64,8 @@ def loadAllData():
     trainX = data['trainX']
     trainY = data['trainY']
     stemmer = LancasterStemmer()
-    model = loadTFModel(trainX[0], trainY[0])
+    print(len(trainX[0]), len(trainY[0]))
+    model = loadTFModel(len(trainX[0]), len(trainY[0]))
     return (st, words, classes, trainX, trainY, stemmer, model)
 
 # Initializing all the variables required by the predict function
