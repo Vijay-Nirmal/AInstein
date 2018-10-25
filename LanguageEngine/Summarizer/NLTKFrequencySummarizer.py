@@ -104,14 +104,14 @@ def summarize(text, sentencesCount, minCut = 0.1, maxCut = 0.9):
 
     return summarization
 
-def getOnlyText(url, noOfPar = 0):
+def getOnlyText(url, noOfParagraphs = 0):
     """ Get all the contents from a URI as a `string`
     
     Parameters
     ----------
     url : String
         Input URI
-    noOfPar : int, optional
+    noOfParagraphs : int, optional
         Number of paragraph to get from the website (the default is 0, which takes all the paragraph)
 
     Returns
@@ -124,17 +124,17 @@ def getOnlyText(url, noOfPar = 0):
     soup = BeautifulSoup(page, "lxml")
 
     text = ""
-    if noOfPar == 0:
+    if noOfParagraphs == 0:
         text = ' '.join(map(lambda p: p.text, soup.find_all('p')))
     else:
         for i, para in enumerate(soup.find_all('p')):
-            if i >= noOfPar:
+            if i >= noOfParagraphs:
                 break
             text += " " + para.text
     
     return text.strip()
 
-def getSummaryFromURI(url, sentencesCount = 5, noOfPar = 0):
+def getSummaryFromURI(url, sentencesCount = 5, noOfParagraphs = 0):
     """Get summary of the data in the given URI
     
     Parameters
@@ -143,7 +143,7 @@ def getSummaryFromURI(url, sentencesCount = 5, noOfPar = 0):
         Input URI
     sentencesCount : int, optional
         Number of output sentence (the default is 5, which gives summary in three sentence)
-    noOfPar : int, optional
+    noOfParagraphs : int, optional
         Number of paragraph that should be taken from the URI (the default is 0, which takes all the paragraph)
 
     Returns
@@ -152,7 +152,7 @@ def getSummaryFromURI(url, sentencesCount = 5, noOfPar = 0):
         Summarized output
     
     """
-    return summarize(getOnlyText(url, noOfPar), sentencesCount)
+    return summarize(getOnlyText(url, noOfParagraphs), sentencesCount)
 
 def getSummary(inputString, sentencesCount = 5):
     """Get summary of the given paragraph

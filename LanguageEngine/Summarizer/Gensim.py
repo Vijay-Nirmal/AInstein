@@ -31,7 +31,7 @@ def getOnlyText(url, noOfParagraphs = 0):
     ----------
     url : String
         Input URI
-    noOfPar : int, optional
+    noOfParagraphs : int, optional
         Number of paragraph to get from the website (the default is 0, which takes all the paragraph)
 
     Returns
@@ -63,7 +63,7 @@ def getSummaryFromURI(url, wordCount = 50, noOfParagraphs = 0):
         Input URI
     wordCount : int, optional
         Number of words in the summarized paragraph (the default is 50, which gives summary in 50 words)
-    noOfPar : int, optional
+    noOfParagraphs : int, optional
         Number of paragraph that should be taken from the URI (the default is 0, which takes all the paragraph)
 
     Returns
