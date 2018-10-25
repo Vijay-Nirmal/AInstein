@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 from urllib.request import urlopen
 import re
 
-def removeRefNo(inputString):
+def removeReferenceNumbers(inputString):
     """Removes reference numbers from the strings obtained from wikipedia
     
     Parameters
@@ -18,13 +18,13 @@ def removeRefNo(inputString):
     Returns
     -------
     inputString : String
-        Reference number removed string
+        Reference number removed string obtained from wikipedia
     
     """
 
     return re.sub(r"[\[].*?[\]]", "", inputString)
  
-def getOnlyText(url, noOfPar = 0):
+def getOnlyText(url, noOfParagraphs = 0):
     """ Get all the contents from a URI as a `string`
     
     Parameters
@@ -44,17 +44,17 @@ def getOnlyText(url, noOfPar = 0):
     soup = BeautifulSoup(page, "lxml")
 
     text = ""
-    if noOfPar == 0:
+    if noOfParagraphs == 0:
         text = ' '.join(map(lambda p: p.text, soup.find_all('p')))
     else:
         for i, para in enumerate(soup.find_all('p')):
-            if i >= noOfPar:
+            if i >= noOfParagraphs:
                 break
             text += " " + para.text
     
     return text.strip()
 
-def GetSummaryFromURI(url, wordCount = 50, noOfPar = 0):
+def getSummaryFromURI(url, wordCount = 50, noOfParagraphs = 0):
     """Get summary of the data in the given URI
     
     Parameters
@@ -72,9 +72,9 @@ def GetSummaryFromURI(url, wordCount = 50, noOfPar = 0):
         Summarized output
     
     """
-    return removeRefNo(summarize(str(getOnlyText(url, noOfPar)), word_count = wordCount))
+    return removeReferenceNumbers(summarize(str(getOnlyText(url, noOfParagraphs)), word_count = wordCount))
 
-def GetSummary(inputString, wordCount = 50):
+def getSummary(inputString, wordCount = 50):
     """Get summary of the given paragraph
     
     Parameters
@@ -90,4 +90,4 @@ def GetSummary(inputString, wordCount = 50):
         Summarized output
         
     """
-    return removeRefNo(summarize(inputString, word_count = wordCount))
+    return removeReferenceNumbers(summarize(inputString, word_count = wordCount))

@@ -7,7 +7,7 @@ from string import punctuation
 from heapq import nlargest
 import re
 
-def removeRefNo(inputString):
+def removeReferenceNumbers(inputString):
     """Removes reference numbers from the string
     
     Parameters
@@ -18,7 +18,7 @@ def removeRefNo(inputString):
     Returns
     -------
     inputString : `String`
-        Reference number removed string
+        Reference number removed string obtained from wikipedia
     
     """
 
@@ -26,7 +26,14 @@ def removeRefNo(inputString):
 
 def rank(ranking, n):
     """ Return the first n sentences with highest ranking
-
+    
+    Parameters
+    ----------
+    ranking : dict
+        rank
+    n : int
+        Number of sentences
+    
     """
 
     return nlargest(n, ranking, key=ranking.get)
@@ -93,7 +100,7 @@ def summarize(text, sentencesCount, minCut = 0.1, maxCut = 0.9):
 
     summarization = ""
     for sentence in [sents[j] for j in sentsIdx]:
-        summarization += removeRefNo(sentence).strip()
+        summarization += removeReferenceNumbers(sentence).strip()
 
     return summarization
 
@@ -127,7 +134,7 @@ def getOnlyText(url, noOfPar = 0):
     
     return text.strip()
 
-def GetSummaryFromURI(url, sentencesCount = 5, noOfPar = 0):
+def getSummaryFromURI(url, sentencesCount = 5, noOfPar = 0):
     """Get summary of the data in the given URI
     
     Parameters
@@ -147,7 +154,7 @@ def GetSummaryFromURI(url, sentencesCount = 5, noOfPar = 0):
     """
     return summarize(getOnlyText(url, noOfPar), sentencesCount)
 
-def GetSummary(inputString, sentencesCount = 5):
+def getSummary(inputString, sentencesCount = 5):
     """Get summary of the given paragraph
     
     Parameters
