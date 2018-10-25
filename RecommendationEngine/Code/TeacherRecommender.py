@@ -10,7 +10,7 @@ facultyWordList = []
 facultyFeatureVectors = []
 
 
-def loadData(location="RecommendationEngine/Data/FacultyInterests.json"):
+def loadData(location="KnowledgeEngine/Data/FacultyInterests.json"):
     """Loads the specified JSON file and returns the data object
 
     Parameters
