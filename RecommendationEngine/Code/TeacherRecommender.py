@@ -78,7 +78,7 @@ def recommendTeacher(sent, top=1):
         inputVector.append(1) if word in words else inputVector.append(0)
     allScores = {}
     for faculty in facultyFeatureVectors:
-        similarity = 1 - spatial.diSstance.cosine(inputVector, faculty[1])
+        similarity = 1 - spatial.distance.cosine(inputVector, faculty[1])
         allScores[faculty[0]] = similarity
     
     allScores = sorted(allScores.items(), key=lambda kv: kv[1], reverse=True)

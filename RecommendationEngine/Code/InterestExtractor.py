@@ -34,7 +34,7 @@ def makeInterestJson():
             temp = {"id": i, "name":teacher["name"], "interest": teacher["Interest"]}
             teacherInterests["Interests"].append(temp)
 
-    with open("RecommendationEngine/Data/FacultyInterests.json", "w") as jsonFile:
+    with open("Knowledge/Data/FacultyInterests.json", "w") as jsonFile:
         json.dump(teacherInterests, jsonFile)
  
 if __name__ == "__main__":
