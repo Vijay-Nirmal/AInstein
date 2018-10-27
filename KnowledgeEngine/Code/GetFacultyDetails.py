@@ -47,7 +47,7 @@ def getFacultyLink(allPageUrl):
 
     return facultyLink
 
-def removeUnnecessarySting(input):
+def removeUnnecessaryString(input):
     """ Removes newline and normalize unicode
     
     Parameters
