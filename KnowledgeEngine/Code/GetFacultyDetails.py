@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
-from autocorrect import spell
 import regex as re
+import unicodedata
 import json
 
 def getAllPageUrl():
@@ -47,6 +47,17 @@ def getFacultyLink(allPageUrl):
 
     return facultyLink
 
+def removeUnnecessarySting(input):
+    """ Removes newline and normalize unicode
+    
+    Parameters
+    ----------
+    input : String
+        String to normalize
+    
+    """
+    return unicodedata.normalize("NFKD", input.replace("\n", ""))
+
 def populateFacultyDetailsJSON(facultyLink):
     """Create FacultyDetails.json file with all faculty details
     
@@ -62,6 +73,9 @@ def populateFacultyDetailsJSON(facultyLink):
         correctedWords = json.load(correctedWordsJSON)
 
     for i, faculty in enumerate(facultyLink, 1):
+        if faculty == "https://www.amrita.edu/node/2087":
+            faculty = "https://www.amrita.edu/faculty/b-uma"
+        
         print("Getting the details of faculty " + str(i) + " in " + str(len(facultyLink)) + " -> Progress {:3.1%}".format(i / len(facultyLink)), end="\r")
 
         soup = BeautifulSoup(urlopen(faculty), "lxml")
@@ -79,12 +93,12 @@ def populateFacultyDetailsJSON(facultyLink):
         emailSoup = soup.find("div", {"class": "field field-name-field-faculty-email field-type-text field-label-hidden"})
         email = "NULL"
         if emailSoup is not None:
-            email = emailSoup.text.strip()
+            email = removeUnnecessarySting(emailSoup.text.strip())
 
         qualificationSoup = soup.find("div", {"class": "field field-name-field-faculty-qualification field-type-taxonomy-term-reference field-label-inline clearfix"})
         qualification = "NULL"
         if qualificationSoup is not None:
-            qualification = qualificationSoup.findChildren()[1].text.strip()
+            qualification = removeUnnecessarySting(qualificationSoup.findChildren()[1].text.strip())
 
         mainContentSoup = soup.find("div", {"class": "field field-name-body field-type-text-with-summary field-label-hidden"})
         
@@ -92,20 +106,21 @@ def populateFacultyDetailsJSON(facultyLink):
         for tags in mainContentSoup.findChild().findChild().findChildren(recursive=False):
             if tags.name != 'p':
                 break
-            description += tags.text + ""
+            description += removeUnnecessarySting(tags.text.strip()) + " "
 
         publicationsSoup = mainContentSoup.findChild().findChild().find("div", {"class": ['view', 'view-biblio-views', 'view-id-biblio_views', 'view-display-id-block_1']})
         publications = []
         if publicationsSoup is not None:
             for table in publicationsSoup.findChildren("tbody"):
                 for rows in table.findChildren(recursive=False):
-                    publications.append(rows.findChildren(recursive=False)[2].text.strip())
+                    publicationsIndex = len(rows.findChildren(recursive=False)) - 1
+                    publications.append(removeUnnecessarySting(rows.findChildren(recursive=False)[publicationsIndex].text.strip()))
 
         interests = []
         interestSoup = soup.find("div", {"class": "field field-name-field-faculty-research-interest field-type-taxonomy-term-reference field-label-inline clearfix"})
         if interestSoup is not None:
             for interest in interestSoup.findChildren(recursive=False)[1].text.split(","):
-                interest = re.sub(r"\p{P}+", "", interest)
+                interest = re.sub(r"\p{P}+", "", removeUnnecessarySting(interest))
                 interest = interest.lower()
                 interests.append(spellCheck(interest, correctedWords))
 
