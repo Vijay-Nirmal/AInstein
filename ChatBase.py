@@ -1,6 +1,7 @@
 from LanguageEngine import TextClassifier as tc
 from ActionBase import FacultyActions as fa
 from ActionBase import WebActions as wa
+import re
 
 classifier = tc.Classifier()
 
@@ -10,6 +11,11 @@ def responceFor(input):
     if(questionClass == "who"):
         return fa.action(input)
     elif(questionClass == "what"):
-        return wa.scrapeDescription(fa.extractName(input))
+        noOfWordsRegex = re.compile(r'in \d+ words')
+        noOfWordsRegexSearch = noOfWordsRegex.search(input)
+        if noOfWordsRegexSearch is None:
+            return wa.scrapeDescription(fa.extractName(input))
+        else:
+            return wa.scrapeDescription(fa.extractName(input), int(noOfWordsRegexSearch.group().split(' ')[1]))
 
     return "Oops, I can't understand"
