@@ -1,6 +1,10 @@
-from LanguageEngine import TextClassifier as tc
+# import sys, os
+# sys.path.append(os.path.abspath(os.path.join('LanguageEngine')))
+# print(sys.path)
 
-classifier = tc.Classifier()
+import LanguageEngine
+
+# classifier = tc.Classifier()
 
 def responceFor(input):
     print(input)
