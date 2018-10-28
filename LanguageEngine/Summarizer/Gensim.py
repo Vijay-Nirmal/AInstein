@@ -91,3 +91,6 @@ def getSummary(inputString, wordCount = 50):
         
     """
     return removeReferenceNumbers(summarize(inputString, word_count = wordCount))
+
+if __name__ == '__main__':
+    print(getSummaryFromURI("https://en.wikipedia.org/wiki/Artificial_neural_network", 50, 5))

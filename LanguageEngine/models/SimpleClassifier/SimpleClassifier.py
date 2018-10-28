@@ -117,7 +117,7 @@ def makeInputArray(sentence, words):
     return(np.array(bag))
 
 
-def predict(sentence, MIN_ACC=0.1):
+def predict(sentence, top, MIN_ACC=0.1):
     """predicts the class of sentence
 
     Predicts the class and the slots (entities) of the given sentene
@@ -145,6 +145,7 @@ def predict(sentence, MIN_ACC=0.1):
         entities = predictSlots(sentence, classes[r[0]])
         interm = {"intent": classes[r[0]], "originalSentence": sentence, "confidence": r[1], 'entities': entities}
         returnJson['predictions'].append(interm)
+    returnJson['predictions'] = returnJson['predictions'][:top]
     return returnJson
 
 def predictSlots(sentence, predictedClass):

@@ -85,7 +85,7 @@ def train():
     trainingDataY = list(trainingData[:, 1])
     model = makeModel(len(trainingDataX[0]), len(trainingDataY[0]))
 
-    model.fit(trainingDataX, trainingDataY, n_epoch=300,
+    model.fit(trainingDataX, trainingDataY, n_epoch=700,
               batch_size=16, show_metric=True)
 
     model.save('data/TrainedModel/model.tflearn')

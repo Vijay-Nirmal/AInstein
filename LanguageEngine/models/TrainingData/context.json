@@ -119,8 +119,11 @@
       "tag": "who",
       "patterns": [
         "who is barack obama",
+        "who is",
         "who is latha parameswaran",
-        "who is the best teacher in amrita"
+        "who is the best teacher in amrita",
+        "tell me about latha parameswaran",
+        "tell me about vamsee sir"
       ]
     },
     {
@@ -130,7 +133,9 @@
         "what is deep learning",
         "what is amrita",
         "what is linear algebra",
-        "what is the best restaurant in coimbatore"
+        "what is the best restaurant in coimbatore",
+        "explain to me what machine leraning is",
+        "elucidate on what deep learning is"
       ]
     }
   ]

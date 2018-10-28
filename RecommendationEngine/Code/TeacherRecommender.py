@@ -2,7 +2,6 @@ import nltk
 import json
 import pickle
 from scipy import spatial
-from autocorrect import spell
 import sys
 
 interestWords = []
@@ -72,6 +71,7 @@ def recommendTeacher(sent, top=1):
 
     """
     words = nltk.word_tokenize(sent)
+    print(words)
     inputVector = []
     for word in interestWords:
         inputVector.append(1) if word in words else inputVector.append(0)

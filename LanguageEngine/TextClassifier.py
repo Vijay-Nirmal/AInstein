@@ -22,7 +22,7 @@ class Classifier():
             from LanguageEngine.models.SimpleClassifier import SimpleClassifier as sc
             self.classifier = sc
     
-    def predict(self, sentence):
+    def predict(self, sentence, top=1):
         """Does prediction on the given sentence
         Predicts the class of the sentece and the slots (entities)
 
@@ -35,5 +35,5 @@ class Classifier():
         returnJson : dict
             The dict containing the class, original sentence and the predicted entities of the sentence
         """
-        returnJson = self.classifier.predict(sentence)
+        returnJson = self.classifier.predict(sentence.title(), top)
         return returnJson
