@@ -38,7 +38,7 @@ def defaultReply():
 
 def extractName(originalSentence):
     posTags = nltk.pos_tag(nltk.word_tokenize(originalSentence))
-    print(posTags)
+    
     name = ""
     for tag in posTags:
         if "NN" in tag[1]:
