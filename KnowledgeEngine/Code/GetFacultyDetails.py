@@ -93,12 +93,12 @@ def populateFacultyDetailsJSON(facultyLink):
         emailSoup = soup.find("div", {"class": "field field-name-field-faculty-email field-type-text field-label-hidden"})
         email = "NULL"
         if emailSoup is not None:
-            email = removeUnnecessarySting(emailSoup.text.strip())
+            email = removeUnnecessaryString(emailSoup.text.strip())
 
         qualificationSoup = soup.find("div", {"class": "field field-name-field-faculty-qualification field-type-taxonomy-term-reference field-label-inline clearfix"})
         qualification = "NULL"
         if qualificationSoup is not None:
-            qualification = removeUnnecessarySting(qualificationSoup.findChildren()[1].text.strip())
+            qualification = removeUnnecessaryString(qualificationSoup.findChildren()[1].text.strip())
 
         mainContentSoup = soup.find("div", {"class": "field field-name-body field-type-text-with-summary field-label-hidden"})
         
@@ -106,7 +106,7 @@ def populateFacultyDetailsJSON(facultyLink):
         for tags in mainContentSoup.findChild().findChild().findChildren(recursive=False):
             if tags.name != 'p':
                 break
-            description += removeUnnecessarySting(tags.text.strip()) + " "
+            description += removeUnnecessaryString(tags.text.strip()) + " "
 
         publicationsSoup = mainContentSoup.findChild().findChild().find("div", {"class": ['view', 'view-biblio-views', 'view-id-biblio_views', 'view-display-id-block_1']})
         publications = []
@@ -114,13 +114,13 @@ def populateFacultyDetailsJSON(facultyLink):
             for table in publicationsSoup.findChildren("tbody"):
                 for rows in table.findChildren(recursive=False):
                     publicationsIndex = len(rows.findChildren(recursive=False)) - 1
-                    publications.append(removeUnnecessarySting(rows.findChildren(recursive=False)[publicationsIndex].text.strip()))
+                    publications.append(removeUnnecessaryString(rows.findChildren(recursive=False)[publicationsIndex].text.strip()))
 
         interests = []
         interestSoup = soup.find("div", {"class": "field field-name-field-faculty-research-interest field-type-taxonomy-term-reference field-label-inline clearfix"})
         if interestSoup is not None:
             for interest in interestSoup.findChildren(recursive=False)[1].text.split(","):
-                interest = re.sub(r"\p{P}+", "", removeUnnecessarySting(interest))
+                interest = re.sub(r"\p{P}+", "", removeUnnecessaryString(interest))
                 interest = interest.lower()
                 interests.append(spellCheck(interest, correctedWords))
 
