@@ -9,8 +9,9 @@ def Chat():
             giveResponce("Goodbye")
             break
         if request.lower() == "listen":
-            request = st.SpeechToText()
-        if request == 0:
+            request, isSuccess = st.SpeechToText()
+        if isSuccess == False:
+            giveResponce(request)
             continue
         
         responce = cb.responceFor(request)
