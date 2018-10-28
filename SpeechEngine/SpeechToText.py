@@ -1,4 +1,5 @@
 import speech_recognition as sr
+from SpeechEngine import TextToSpeech as ts
 
 def SpeechToText():
     r = sr.Recognizer()
@@ -7,10 +8,10 @@ def SpeechToText():
         audio = r.listen(source)
         try:
             text = r.recognize_google(audio)
-            return text
+            return text, True
         except sr.UnknownValueError:
-            return "Sorry, could not recognize what you said"
+            return "Sorry, could not recognize what you said", False
         except sr.RequestError:
-            return "Check your internet connection"
+            return "Check your internet connection", False
         except:
-            return "Sorry could not recognize what you said"
+            return "Sorry could not recognize what you said", False
