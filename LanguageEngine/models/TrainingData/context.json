@@ -127,6 +127,35 @@
       ]
     },
     {
+      "tag": "who.email",
+      "patterns": [
+        "what is the email address of latha",
+        "what is her email address",
+        "what is his email address",
+        "tell me the email address of",
+        "tell me his email",
+        "tell me her email",
+        "tell me the email of latha",
+        "what is the email of vamsee"
+      ]
+    },
+    {
+      "tag": "who.interest",
+      "patterns": [
+        "what is the field of interest of",
+        "what are his interests",
+        "what are her interests",
+        "what does latha parameswaran do",
+        "what does she do",
+        "what does he do",
+        "what does he like",
+        "what does she like",
+        "what does vamsee like",
+        "what is his field of interest",
+        "what is her field of interest"
+      ]
+    },
+    {
       "tag": "what",
       "patterns": [
         "what is machine learning?",
@@ -134,7 +163,7 @@
         "what is amrita",
         "what is linear algebra",
         "what is the best restaurant in coimbatore",
-        "explain to me what machine leraning is",
+        "explain to me what machine learning is",
         "elucidate on what deep learning is"
       ]
     }

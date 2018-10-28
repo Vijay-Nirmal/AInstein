@@ -142,8 +142,9 @@ def predict(sentence, top, MIN_ACC=0.1):
     returnJson = {}
     returnJson['predictions'] = []
     for r in results:
-        entities = predictSlots(sentence, classes[r[0]])
-        interm = {"intent": classes[r[0]], "originalSentence": sentence, "confidence": r[1], 'entities': entities}
+        # entities = predictSlots(sentence, classes[r[0]])
+        # interm = {"intent": classes[r[0]], "originalSentence": sentence, "confidence": r[1], 'entities': entities}
+        interm = {"intent": classes[r[0]], "originalSentence": sentence, "confidence": r[1]}
         returnJson['predictions'].append(interm)
     returnJson['predictions'] = returnJson['predictions'][:top]
     return returnJson

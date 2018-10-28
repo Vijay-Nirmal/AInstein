@@ -93,6 +93,5 @@ def train():
     pickle.dump({'words': words, 'classes': tags, 'trainX': trainingDataX,
                  'trainY': trainingDataY}, open("data/trainingData", "wb"))
 
-
 if __name__ == '__main__':
     train()
