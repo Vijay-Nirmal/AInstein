@@ -5,14 +5,14 @@ class Classifier():
     Attributes
     ----------
     SIMPLE_CLASSIFIER : int
-        The integer denotation of the SimpleClassifer, used to instantiate classifer
+        The integer denotation of the SimpleClassifier, used to instantiate classifier
     classifier : LanguageEngine.model
         The class object of the classifier specified
     
     Methods
     -------
     predict(sentence)
-        returns the dict containing the original sentenece, predicted class, and the slots (entities)
+        returns the dict containing the original sentence, predicted class, and the slots (entities)
     """
 
     SIMPLE_CLASSIFIER = 1
@@ -22,9 +22,9 @@ class Classifier():
             from LanguageEngine.models.SimpleClassifier import SimpleClassifier as sc
             self.classifier = sc
     
-    def predict(self, sentence):
+    def predict(self, sentence, top=1):
         """Does prediction on the given sentence
-        Predicts the class of the sentece and the slots (entities)
+        Predicts the class of the sentence and the slots (entities)
 
         Parameters
         ----------
@@ -35,5 +35,5 @@ class Classifier():
         returnJson : dict
             The dict containing the class, original sentence and the predicted entities of the sentence
         """
-        returnJson = self.classifier.predict(sentence)
+        returnJson = self.classifier.predict(sentence.title(), top)
         return returnJson
