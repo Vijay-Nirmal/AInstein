@@ -1,7 +1,7 @@
-from gtts import gTTS
-import winsound
+import pyttsx3
 
-#tts = gTTS('Vijay Nirmal')
-#tts.save('Audio.wav')
-
-winsound.PlaySound('Audio.mp3', winsound.SND_ASYNC)
+def TextToSpeech(text):
+    engine = pyttsx3.init()
+    engine.say(text)
+    engine.setProperty('rate', 60)
+    engine.runAndWait()
