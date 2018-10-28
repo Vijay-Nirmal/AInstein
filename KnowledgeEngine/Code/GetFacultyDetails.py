@@ -1,5 +1,7 @@
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import regex as re
+import unicodedata
 import json
 
 def getAllPageUrl():
@@ -39,11 +41,22 @@ def getFacultyLink(allPageUrl):
     print("Getting the list of faculties ...", end="\r")
     for pageUrl in allPageUrl:
         soup = BeautifulSoup(urlopen(pageUrl), "lxml")
-        facultys = soup.find("div", {"class": "view-content"}).findChildren("div" , recursive=False)
-        for faculty in facultys:
+        faculties = soup.find("div", {"class": "view-content"}).findChildren("div" , recursive=False)
+        for faculty in faculties:
             facultyLink.append("https://www.amrita.edu" + faculty.find("a", href=True)['href'])
 
     return facultyLink
+
+def removeUnnecessaryString(input):
+    """ Removes newline and normalize unicode
+    
+    Parameters
+    ----------
+    input : String
+        String to normalize
+    
+    """
+    return unicodedata.normalize("NFKD", input.replace("\n", ""))
 
 def populateFacultyDetailsJSON(facultyLink):
     """Create FacultyDetails.json file with all faculty details
@@ -56,7 +69,13 @@ def populateFacultyDetailsJSON(facultyLink):
     """
     jsonData = {}
 
+    with open('KnowledgeEngine/Data/CorrectedWords.json') as correctedWordsJSON:
+        correctedWords = json.load(correctedWordsJSON)
+
     for i, faculty in enumerate(facultyLink, 1):
+        if faculty == "https://www.amrita.edu/node/2087":
+            faculty = "https://www.amrita.edu/faculty/b-uma"
+        
         print("Getting the details of faculty " + str(i) + " in " + str(len(facultyLink)) + " -> Progress {:3.1%}".format(i / len(facultyLink)), end="\r")
 
         soup = BeautifulSoup(urlopen(faculty), "lxml")
@@ -74,12 +93,12 @@ def populateFacultyDetailsJSON(facultyLink):
         emailSoup = soup.find("div", {"class": "field field-name-field-faculty-email field-type-text field-label-hidden"})
         email = "NULL"
         if emailSoup is not None:
-            email = emailSoup.text.strip()
+            email = removeUnnecessarySting(emailSoup.text.strip())
 
         qualificationSoup = soup.find("div", {"class": "field field-name-field-faculty-qualification field-type-taxonomy-term-reference field-label-inline clearfix"})
         qualification = "NULL"
         if qualificationSoup is not None:
-            qualification = qualificationSoup.findChildren()[1].text.strip()
+            qualification = removeUnnecessarySting(qualificationSoup.findChildren()[1].text.strip())
 
         mainContentSoup = soup.find("div", {"class": "field field-name-body field-type-text-with-summary field-label-hidden"})
         
@@ -87,24 +106,54 @@ def populateFacultyDetailsJSON(facultyLink):
         for tags in mainContentSoup.findChild().findChild().findChildren(recursive=False):
             if tags.name != 'p':
                 break
-            description += tags.text + ""
+            description += removeUnnecessarySting(tags.text.strip()) + " "
 
         publicationsSoup = mainContentSoup.findChild().findChild().find("div", {"class": ['view', 'view-biblio-views', 'view-id-biblio_views', 'view-display-id-block_1']})
         publications = []
         if publicationsSoup is not None:
             for table in publicationsSoup.findChildren("tbody"):
                 for rows in table.findChildren(recursive=False):
-                    publications.append(rows.findChildren(recursive=False)[2].text.strip())
+                    publicationsIndex = len(rows.findChildren(recursive=False)) - 1
+                    publications.append(removeUnnecessarySting(rows.findChildren(recursive=False)[publicationsIndex].text.strip()))
 
-        interest = []
+        interests = []
         interestSoup = soup.find("div", {"class": "field field-name-field-faculty-research-interest field-type-taxonomy-term-reference field-label-inline clearfix"})
         if interestSoup is not None:
-            interest = interestSoup.findChildren(recursive=False)[1].text.split(",")
+            for interest in interestSoup.findChildren(recursive=False)[1].text.split(","):
+                interest = re.sub(r"\p{P}+", "", removeUnnecessarySting(interest))
+                interest = interest.lower()
+                interests.append(spellCheck(interest, correctedWords))
 
-        jsonData[str(i)] = {"name": name, "Email": email, "positions": positions, "Qualification": qualification, "image": image, "description": description.strip(), "Publications": publications, "Interest": interest}
+        jsonData[str(i)] = {"name": name, "Email": email, "positions": positions, "Qualification": qualification, "image": image, "description": description.strip(), "Publications": publications, "Interest": interests}
 
     with open('KnowledgeEngine/Data/FacultyDetails.json', 'w', encoding='utf-8') as outputfile:
         json.dump(jsonData, outputfile, ensure_ascii=False)
+
+def spellCheck(input, correctedWords):
+    """To correct spelling mistakes. Corrected spelling are stored in a JSON
+    
+    Parameters
+    ----------
+    input : `String`
+        Sentence to check for spelling mistake
+    correctedWords : `dictionary`
+        Dictionary of wrong words - corrected words
+
+    Returns
+    -------
+    correctedSentence : `String`
+        List of all faculties
+
+    """
+
+    correctedSentence = ""
+    for word in input.split():
+        if word in correctedWords:
+            correctedSentence += " " + correctedWords[word]
+        else:
+            correctedSentence += " " + word
+    
+    return correctedSentence.strip().lower()
 
 def getFacultyDetails():
     """Main function to create faculty details database
@@ -114,6 +163,3 @@ def getFacultyDetails():
     facultyLink = getFacultyLink(allPageUrl)
     populateFacultyDetailsJSON(facultyLink)
     print(",,,,,,.....................,,,,,,,,,, Completed ,,,,,,,,,,.....................,,,,,,")
-
-if __name__ == '__main__':
-    getFacultyDetails()

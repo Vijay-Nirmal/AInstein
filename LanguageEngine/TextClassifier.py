@@ -17,7 +17,7 @@ class Classifier():
 
     SIMPLE_CLASSIFIER = 1
 
-    def __init__(self, type=Classifier.SIMPLE_CLASSIFIER):
+    def __init__(self, type=SIMPLE_CLASSIFIER):
         if type is Classifier.SIMPLE_CLASSIFIER:
             from LanguageEngine.models.SimpleClassifier import SimpleClassifier as sc
             self.classifier = sc
