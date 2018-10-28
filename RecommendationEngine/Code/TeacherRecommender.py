@@ -2,7 +2,6 @@ import nltk
 import json
 import pickle
 from scipy import spatial
-from autocorrect import spell
 import sys
 
 interestWords = []
