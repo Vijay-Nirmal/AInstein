@@ -70,7 +70,7 @@ def recommendTeacher(sent, top=1):
         The list containing the names of the top n recommendations
 
     """
-    words = nltk.word_tokenize(sent)
+    words = nltk.word_tokenize(sent.lower())
     inputVector = []
     for word in interestWords:
         inputVector.append(1) if word in words else inputVector.append(0)
@@ -84,6 +84,6 @@ def recommendTeacher(sent, top=1):
     for item in allScores[:top]:
         topTeachers.append(item[0])
     
-    return topTeachers
+    return ", ".join(topTeachers) + " is/are working on it"
 
 prepareData()

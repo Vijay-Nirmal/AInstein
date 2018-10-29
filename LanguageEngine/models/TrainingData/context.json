@@ -92,6 +92,23 @@
       ]
     },
     {
+      "tag": "recommend",
+      "patterns": [
+        "recommend me a teacher who works with",
+        "recommend me a teacher who knows",
+        "tell me someone who knows",
+        "tell me a teacher that knows",
+        "recommend me a teacher for",
+        "who is working with",
+        "who is interested in",
+        "who is interested in working with",
+        "can you tell me someone who knows",
+        "can you tell me someone who works with",
+        "can you tell who is interested in working in",
+        "can you recommend a teacher who works with"
+      ]
+    },
+    {
       "tag": "who",
       "patterns": [
         "who is barack obama",
