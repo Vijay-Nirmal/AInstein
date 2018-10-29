@@ -5,6 +5,7 @@ from SpeechEngine import TextToSpeech as ts
 def Chat():
     while True:
         request = input("User: ")
+        isSuccess = True
         if isExitRequest(request):
             giveResponce("Goodbye")
             break
@@ -18,7 +19,7 @@ def Chat():
         giveResponce(responce)
 
 def isExitRequest(request):
-    request.lower() in ["exit", "goodbye"]
+    return request.lower() in ["exit", "goodbye"]
 
 def giveResponce(responce):
     print("AInstein: " + responce)

@@ -8,14 +8,15 @@ classifier = tc.Classifier()
 def responceFor(input):
     predictResult = classifier.predict(input)
     questionClass = predictResult["predictions"][0]["intent"].split('.')[0]
+    preprocessedQuestion = predictResult["predictions"][0]["originalSentence"]
     if(questionClass == "who"):
-        return fa.action(input)
+        return fa.action(predictResult)
     elif(questionClass == "what"):
-        noOfWordsRegex = re.compile(r'in \d+ words')
-        noOfWordsRegexSearch = noOfWordsRegex.search(input)
+        noOfWordsRegex = re.compile(r'In \d+ Words')
+        noOfWordsRegexSearch = noOfWordsRegex.search(preprocessedQuestion)
         if noOfWordsRegexSearch is None:
-            return wa.scrapeDescription(fa.extractName(input))
+            return wa.scrapeDescription(fa.extractName(preprocessedQuestion))
         else:
-            return wa.scrapeDescription(fa.extractName(input), int(noOfWordsRegexSearch.group().split(' ')[1]))
+            return wa.scrapeDescription(fa.extractName(preprocessedQuestion), int(noOfWordsRegexSearch.group().split(' ')[1]))
 
     return "Oops, I can't understand"

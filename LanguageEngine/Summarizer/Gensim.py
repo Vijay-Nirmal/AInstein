@@ -5,6 +5,7 @@ from gensim.summarization.summarizer import summarize
 from gensim.summarization import keywords
 from bs4 import BeautifulSoup
 from urllib.request import urlopen
+import unicodedata
 import re
 
 def removeReferenceNumbers(inputString):
@@ -23,7 +24,18 @@ def removeReferenceNumbers(inputString):
     """
 
     return re.sub(r"[\[].*?[\]]", "", inputString)
- 
+
+def removeUnnecessaryString(input):
+    """ Removes newline and normalize unicode
+    
+    Parameters
+    ----------
+    input : String
+        String to normalize
+    
+    """
+    return unicodedata.normalize("NFKD", input.replace("\n", ""))
+
 def getOnlyText(url, noOfParagraphs = 0):
     """ Get all the contents from a URI as a `string`
     
@@ -72,7 +84,7 @@ def getSummaryFromURI(url, wordCount = 50, noOfParagraphs = 0):
         Summarized output
     
     """
-    return removeReferenceNumbers(summarize(str(getOnlyText(url, noOfParagraphs)), word_count = wordCount))
+    return removeUnnecessaryString(removeReferenceNumbers(summarize(str(getOnlyText(url, noOfParagraphs)), word_count = wordCount)))
 
 def getSummary(inputString, wordCount = 50):
     """Get summary of the given paragraph
