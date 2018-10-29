@@ -1,5 +1,4 @@
 import speech_recognition as sr
-from SpeechEngine import TextToSpeech as ts
 
 def SpeechToText():
     r = sr.Recognizer()
