@@ -1,6 +1,7 @@
 from LanguageEngine import TextClassifier as tc
 from ActionBase import FacultyActions as fa
 from ActionBase import WebActions as wa
+from RecommendationEngine.Code import TeacherRecommender as tr
 import re
 
 classifier = tc.Classifier()
@@ -18,5 +19,8 @@ def responceFor(input):
             return wa.scrapeDescription(fa.extractName(preprocessedQuestion))
         else:
             return wa.scrapeDescription(fa.extractName(preprocessedQuestion), int(noOfWordsRegexSearch.group().split(' ')[1]))
+    elif questionClass == "recommend":
+        interests = fa.extractName(preprocessedQuestion)
+        return tr.recommendTeacher(interests)
 
     return "Oops, I can't understand"

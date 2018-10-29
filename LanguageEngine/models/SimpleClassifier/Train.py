@@ -42,7 +42,7 @@ def train():
     """Preprocesses and trains model
 
         Preprocesses the data by creating bag of words for each sentence with its class, and trains 
-        the neural netowrk model for classification. The trained model along with the serialized 
+        the neural network model for classification. The trained model along with the serialized 
         training data is saved in the data/ directory.
     """
 
@@ -85,7 +85,7 @@ def train():
     trainingDataY = list(trainingData[:, 1])
     model = makeModel(len(trainingDataX[0]), len(trainingDataY[0]))
 
-    model.fit(trainingDataX, trainingDataY, n_epoch=700,
+    model.fit(trainingDataX, trainingDataY, n_epoch=500,
               batch_size=16, show_metric=True)
 
     model.save('data/TrainedModel/model.tflearn')

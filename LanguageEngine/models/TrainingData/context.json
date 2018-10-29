@@ -46,30 +46,6 @@
       ]
     },
     {
-      "tag": "self.sexualAdvances",
-      "patterns": [
-        "Baby",
-        "Babe",
-        "Do you smash",
-        "Wanna fuck",
-        "Do you smash",
-        "What is sex",
-        "Will you have sex with me",
-        "Will you marry me?",
-        "fuck me",
-        "give me a bj",
-        "give me a blow job",
-        "give me a rim job",
-        "Wanna bang?",
-        "Will you bang me?",
-        "luv you",
-        "i love you",
-        "love you",
-        "are you single",
-        "single?"
-      ]
-    },
-    {
       "tag": "jokes",
       "patterns": [
         "tell me a joke",
@@ -113,6 +89,23 @@
         "wow",
         "really",
         "seriously"
+      ]
+    },
+    {
+      "tag": "recommend",
+      "patterns": [
+        "recommend me a teacher who works with",
+        "recommend me a teacher who knows",
+        "tell me someone who knows",
+        "tell me a teacher that knows",
+        "recommend me a teacher for",
+        "who is working with",
+        "who is interested in",
+        "who is interested in working with",
+        "can you tell me someone who knows",
+        "can you tell me someone who works with",
+        "can you tell who is interested in working in",
+        "can you recommend a teacher who works with"
       ]
     },
     {
