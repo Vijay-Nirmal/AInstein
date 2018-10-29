@@ -42,7 +42,7 @@ def train():
     """Preprocesses and trains model
 
         Preprocesses the data by creating bag of words for each sentence with its class, and trains 
-        the neural netowrk model for classification. The trained model along with the serialized 
+        the neural network model for classification. The trained model along with the serialized 
         training data is saved in the data/ directory.
     """
 
