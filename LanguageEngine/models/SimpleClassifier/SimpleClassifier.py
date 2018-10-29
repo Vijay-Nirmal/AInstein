@@ -64,7 +64,7 @@ def loadAllData():
     trainX = data['trainX']
     trainY = data['trainY']
     stemmer = LancasterStemmer()
-    print(len(trainX[0]), len(trainY[0]))
+    # print(len(trainX[0]), len(trainY[0]))
     model = loadTFModel(len(trainX[0]), len(trainY[0]))
     return (st, words, classes, trainX, trainY, stemmer, model)
 

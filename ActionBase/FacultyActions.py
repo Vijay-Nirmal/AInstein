@@ -11,7 +11,7 @@ exclusionList = ["Me", "Email", "Id", "Address", "Her", "His", "Their", "He", "S
                  "Someone", "Who", "Teacher", "Person", "Faculty"]
 
 with open("KnowledgeEngine/Data/FacultyDetails.json", encoding="utf8") as jsonData:
-            facultyDetails = json.load(jsonData)
+    facultyDetails = json.load(jsonData)
 
 def action(data):
     questionClass = data["predictions"][0]["intent"]
