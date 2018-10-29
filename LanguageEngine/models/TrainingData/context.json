@@ -46,30 +46,6 @@
       ]
     },
     {
-      "tag": "self.sexualAdvances",
-      "patterns": [
-        "Baby",
-        "Babe",
-        "Do you smash",
-        "Wanna fuck",
-        "Do you smash",
-        "What is sex",
-        "Will you have sex with me",
-        "Will you marry me?",
-        "fuck me",
-        "give me a bj",
-        "give me a blow job",
-        "give me a rim job",
-        "Wanna bang?",
-        "Will you bang me?",
-        "luv you",
-        "i love you",
-        "love you",
-        "are you single",
-        "single?"
-      ]
-    },
-    {
       "tag": "jokes",
       "patterns": [
         "tell me a joke",

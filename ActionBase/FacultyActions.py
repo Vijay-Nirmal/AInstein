@@ -7,7 +7,8 @@ from LanguageEngine.Summarizer import NLTKFrequencySummarizer as nfs
 from ActionBase import WebActions
 
 facultyName = None
-exclusionList = ["Me", "Email", "Id", "Address", "Her", "His", "Their", "He", "She", "Do", "Interests", "Are"]
+exclusionList = ["Me", "Email", "Id", "Address", "Her", "His", "Their", "He", "She", "Do", "Interests", "Are",
+                 "Someone", "Who", "Teacher", "Person", "Faculty"]
 
 with open("KnowledgeEngine/Data/FacultyDetails.json", encoding="utf8") as jsonData:
             facultyDetails = json.load(jsonData)
