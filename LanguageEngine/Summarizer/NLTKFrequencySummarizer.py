@@ -24,6 +24,17 @@ def removeReferenceNumbers(inputString):
 
     return re.sub(r"[\[].*?[\]]", "", inputString)
 
+def removeUnnecessaryString(input):
+    """ Removes newline and normalize unicode
+    
+    Parameters
+    ----------
+    input : String
+        String to normalize
+    
+    """
+    return unicodedata.normalize("NFKD", input.replace("\n", ""))
+
 def rank(ranking, n):
     """ Return the first n sentences with highest ranking
     
@@ -152,7 +163,7 @@ def getSummaryFromURI(url, sentencesCount = 5, noOfParagraphs = 0):
         Summarized output
     
     """
-    return summarize(getOnlyText(url, noOfParagraphs), sentencesCount)
+    return removeUnnecessaryString(removeReferenceNumbers(summarize(getOnlyText(url, noOfParagraphs), sentencesCount)))
 
 def getSummary(inputString, sentencesCount = 5):
     """Get summary of the given paragraph

@@ -7,10 +7,10 @@ from LanguageEngine.Summarizer import NLTKFrequencySummarizer as nfs
 from ActionBase import WebActions
 
 facultyName = None
-exclusionList = ["Me", "Email", "Id", "Address", "Her", "His", "Their", "He", "She", "Do", "Interests", "Are"]
+exclusionList = ["Me", "Email", "Id", "Address", "Her", "His", "Their", "He", "She", "Do", "Interests", "Are", "Words"]
 
 with open("KnowledgeEngine/Data/FacultyDetails.json", encoding="utf8") as jsonData:
-            facultyDetails = json.load(jsonData)
+    facultyDetails = json.load(jsonData)
 
 def action(data):
     questionClass = data["predictions"][0]["intent"]
