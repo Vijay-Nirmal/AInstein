@@ -2,3 +2,4 @@
 tflearn_logs
 stanford-ner
 .vscode
+config.py

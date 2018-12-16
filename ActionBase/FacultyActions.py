@@ -9,7 +9,7 @@ from ActionBase import WebActions
 
 facultyName = None
 exclusionList = ["Me", "Email", "Id", "Address", "Her", "His", "Their", "He", "She", "Do", "Interests", "Are",
-                 "Someone", "Who", "Teacher", "Person", "Faculty", "Knows", "Does"]
+                 "Someone", "Who", "Teacher", "Person", "Faculty", "Knows", "Does", "Explain", "Words"]
 stopWords = set(stopwords.words("english"))
 with open("KnowledgeEngine/Data/FacultyDetails.json", encoding="utf8") as jsonData:
     facultyDetails = json.load(jsonData)
@@ -48,6 +48,7 @@ def defaultReply():
 def extractName(originalSentence):
     words = nltk.word_tokenize(originalSentence)
     posTags = nltk.pos_tag(words)
+    # print(posTags)
     name = ""
     for tag in posTags:
         if "NN" in tag[1]:
@@ -55,7 +56,7 @@ def extractName(originalSentence):
                 name += tag[0] + " "
         elif tag[0] in inclusionList:
             name += tag[0] + " "
-    
+    # print(name)
     return name.strip()
 
 
