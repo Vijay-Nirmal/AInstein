@@ -15,10 +15,17 @@ def handle(message):
     contentType, chatType, chatID = telepot.glance(message)
     print(contentType, chatType, chatID)
     if contentType == 'text':
-        endPoint = "textback/?query={}"
+        endPoint = "textback/?mode={}&query={}"
         query = message['text']
-        response = requests.get(APIURL+endPoint+query).json()
+        response = requests.get(APIURL+endPoint.format('text', query)).json()
         bot.sendMessage(chatID, response['response'])
+
+    if contentType == "voice":
+            data = bot.getFile(message['voice']['file_id'])
+            endPoint = "textback/?mode={}&location={}"
+            response = requests.get(APIURL+endPoint.format('voice', data['file_path'])).json()
+            # print(response)
+            bot.sendMessage(chatID, response['response'])
 
 bot.message_loop(handle)
 print("Bot Running...")

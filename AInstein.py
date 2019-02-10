@@ -10,7 +10,7 @@ def Chat():
             giveResponce("Goodbye")
             break
         if request.lower() == "listen":
-            request, isSuccess = st.SpeechToText()
+            request, isSuccess = st.fromMicrophone()
         if isSuccess == False:
             giveResponce(request)
             continue
@@ -23,7 +23,7 @@ def isExitRequest(request):
 
 def giveResponce(responce):
     print("AInstein: " + responce)
-    ts.TextToSpeech(responce)
+    # ts.TextToSpeech(responce)
 
 if __name__ == '__main__':
     giveResponce("Hello, I am AInstein")
