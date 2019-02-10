@@ -7,6 +7,17 @@ import re
 classifier = tc.Classifier()
 
 def responceFor(input):
+    """Generate responce
+
+    Parameters
+    ----------
+    input : str
+        The input sentence given by user
+    Returns
+    -------
+    return : str
+        responce for the user's request
+    """
     predictResult = classifier.predict(input)
     questionClass = predictResult["predictions"][0]["intent"].split('.')[0]
     preprocessedQuestion = predictResult["predictions"][0]["originalSentence"]
