@@ -4,5 +4,4 @@ stanford-ner
 .vscode
 config.py
 .history
-DefaultActions.py
 API/ReceivedData/*
