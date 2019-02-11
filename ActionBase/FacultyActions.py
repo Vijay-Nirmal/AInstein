@@ -22,6 +22,21 @@ for key in facultyDetails.keys():
                 inclusionList.append(word)
 
 def action(data):
+    """
+    The logic part of FacultyActions, this part chooses  whether to find
+    interest, description or to get the email of the person.
+
+    Parameters
+    ----------
+    data : model inference
+        the output of the trained model, including question class,
+        slots, name, etc
+
+    Returns
+    -------
+    response : str
+        The reply to be sent to the user
+    """
     questionClass = data["predictions"][0]["intent"]
     
     if questionClass == "who":
@@ -46,6 +61,19 @@ def defaultReply():
                                  "Well, I don't seem to be able to find that information for you now"])
 
 def extractName(originalSentence):
+    """
+    Uses NLP to extract the name of the person
+
+    Parameters
+    ----------
+    originalSentence : str
+        the raw sentence to be processed
+
+    Returns
+    -------
+    name : str
+        The name of the person in the sentence
+    """
     words = nltk.word_tokenize(originalSentence)
     posTags = nltk.pos_tag(words)
     # print(posTags)
@@ -61,6 +89,21 @@ def extractName(originalSentence):
 
 
 def getInterest(originalSentence):
+    """
+    The ID of the person is found using their name, and their
+    interest is returned after fetching from KnowledgeBase
+
+    Parameters
+    ----------
+    originalSentence : str
+        the raw sentence to be processed
+
+
+    Returns
+    -------
+    interest : str
+        The summarized interest of the person
+    """
     name = extractName(originalSentence)
     if name == '' and facultyName:
         name = facultyName
@@ -73,6 +116,21 @@ def getInterest(originalSentence):
 
 
 def getEmail(originalSentence):
+    """
+    Using the ID of the person in the sentence, their Email
+    is retrieved from KnowledgeBase
+
+    Parameters
+    ----------
+    originalSentence : str
+        the raw sentence to be processed
+
+
+    Returns
+    -------
+    email : str
+        The email of the person
+    """
     name = extractName(originalSentence)
     if name == '' and facultyName:
         name = facultyName
@@ -84,6 +142,21 @@ def getEmail(originalSentence):
         return facultyDetails[str(ID)]["Email"]
 
 def getDescription(originalSentence):
+    """
+    The ID of the person is found using their name, and their
+    description is returned after fetching from KnowledgeBase
+
+    Parameters
+    ----------
+    originalSentence : str
+        the raw sentence to be processed
+
+
+    Returns
+    -------
+    description : str
+        The summarized description of the person
+    """
     global facultyName
     name = extractName(originalSentence)
     facultyName = name
@@ -99,6 +172,21 @@ def getDescription(originalSentence):
         return summary
 
 def findFacultyID(name):
+    """
+    The ID of the person is returned using their name
+
+    Parameters
+    ----------
+    name : str
+        the name of the person
+
+
+    Returns
+    -------
+    ID : int
+        The ID of the faculty, returns -1 if the person is not found in
+        the database
+    """
     with open("KnowledgeEngine/Data/FacultyNames.json", encoding="utf8") as jsonData:
         teacherNamesAndID = json.load(jsonData)
     teacherNames = teacherNamesAndID.values()
@@ -110,4 +198,20 @@ def findFacultyID(name):
         return -1
 
 def scrapeDescription(name):
+    """
+    The description of the person is scraped from the web.
+    The method is only used if the person is not present
+    in the database
+
+    Parameters
+    ----------
+    name : str
+        the name of the person
+
+
+    Returns
+    -------
+    description : str
+        The summarized description of the person
+    """
     return WebActions.scrapeDescription(name)

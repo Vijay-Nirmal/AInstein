@@ -2,12 +2,26 @@ import json
 import random
 
 
-DataLocation = "LanguageEngine\models\TrainingData\context.json"
+DataLocation = "LanguageEngine/models/TrainingData/context.json"
 
 with open(DataLocation) as jsonData:
     replies = json.load(jsonData)
 
 def defaultAnswer(className):
+    """
+    returns one of the default replies for the non essential
+    classes
+
+    Parameters
+    ----------
+    className : str
+        The name of the class from which to choose the random reply
+
+    Returns
+    -------
+    response : str
+        The reply to be sent to the user
+    """
     if className:
         while className:
             for i in replies["contexts"]:
